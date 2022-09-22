@@ -5,4 +5,4 @@ ___
 + Николаев Александр
 ___
 ## Скринкаст 'hello world'.
-[📺](https://disk.yandex.ru/i/qXLKR7x_izH3jQ)
+[📺📺📺📺📺 ](https://disk.yandex.ru/i/qXLKR7x_izH3jQ) <-- 'тык'
