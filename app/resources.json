@@ -1,0 +1,8 @@
+{
+  "domain": "0.0.0.0",
+  "port": "5000",
+  "ymapsKey": "3881c6e6-ef3a-4087-824c-963b9154cd54",
+  "db_address": "mongodb+srv://kirja1980:NoSQL_2022@nosql2022.adeyqzi.mongodb.net/?retryWrites=true&w=majority",
+  "db_name": "NoSQL_2022",
+  "db_collection": "main"
+}
