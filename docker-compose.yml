@@ -3,13 +3,20 @@ services:
   app:
     build: ./app/
     command: python3 -u app/app.py --host db
-#    environment:
-#      - MONGODB_CONNSTRING=mongodb://localhost:27017
     volumes:
     - .:/app
     ports:
       - "5000:5000"
-#  db:
-#    image: mongo:6.0.2
-##    ports:
-##      - "27017:27017"
+      
+  front:
+    container_name: front
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
