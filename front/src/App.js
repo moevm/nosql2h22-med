@@ -1,7 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
 function App() {
+  
   return (
     <div className="App">
       <header className="App-header">

@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "56644ada-7bfc-41be-9ee8-7951de80acfa",
+		"name": "ВВнБД",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21957490"
+	},
+	"item": [
+		{
+			"name": "app",
+			"item": [
+				{
+					"name": "/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/?name=Katuhaaaa",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Katuhaaaa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMedical",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/medical/1732",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"medical",
+								"1732"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMedicalList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/medical",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"medical"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "front",
+			"item": [
+				{
+					"name": "/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://{{host}}:{{port}}",
+			"type": "string"
+		},
+		{
+			"key": "host",
+			"value": "0.0.0.0",
+			"type": "string"
+		},
+		{
+			"key": "port",
+			"value": "5000",
+			"type": "string"
+		}
+	]
+}
