@@ -56,12 +56,41 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/medical",
+							"raw": "{{url}}/medical?firstElement=1&sort=nameFull:-1&search=Акушерская",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"medical"
+							],
+							"query": [
+								{
+									"key": "firstElement",
+									"value": "1",
+									"description": "индекс первого элемента(начиния с 1)"
+								},
+								{
+									"key": "countElement",
+									"value": "100",
+									"description": "количество получаемых элементов",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "nameFull:-1",
+									"description": "сортировка. шаблон:  (<имя поля1>:<порядок сортировки>)"
+								},
+								{
+									"key": "search",
+									"value": "Акушерская",
+									"description": "поиск"
+								},
+								{
+									"key": "filters",
+									"value": "regionId:22,grade:5",
+									"description": "фильтрация. поля передаются через запятую. шаблон: (<имя поля1>:<значение>)",
+									"disabled": true
+								}
 							]
 						}
 					},

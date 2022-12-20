@@ -22,14 +22,21 @@ from flask import Flask
 from flask import request
 import json
 import pymongo
+from pymongo import CursorType
 import logging
-
 
 app = Flask(__name__)
 client = None
 db = None
 db_collection = None
 resource = None
+
+status = {
+    "HTTP_200_OK": 200,
+    "HTTP_400_BAD_REQUEST": 400
+}
+
+int_field = ['id', 'medicalSubjectId', 'grade']
 
 
 @app.route("/")
@@ -39,22 +46,85 @@ def hello():
     return f"Hello {args}!"
 
 
+def getField(field, value):
+    if field in int_field:
+        return int(value)
+    return value
+
 @app.route('/medical')
 def GetHospitalList():
     logging.info("GetMedicalList")
-    ret = db_collection.find().sort("id").limit(5)
-    data = []
+    try:
 
-    for i in range(5):
-        data.append(ret.next())
-        data[i]['_id'] = str(data[i]['_id'])
+        keys = request.args.to_dict()
 
-    return json.dumps(data)
+        # Переменная первого элемента
+        firstElement = \
+            (int(request.args.get('firstElement', default=None, type=int)) if keys.get('firstElement') else 1)
+
+        # Переменная количества элементов
+        countElement = \
+            (int(request.args.get('countElement', default=None, type=int)) if keys.get('countElement') else 20)
+
+        # Переменная сортировки
+        if keys.get('sort'):
+            buff = (request.args.get('sort', default=None, type=str)).split(":")
+            sort = [(buff[0], int(buff[1]))]
+        else:
+            sort = []
+
+        # Переменная поиска
+        search = \
+            (request.args.get('search', default=None, type=str) if keys.get('search') else None)
+
+        if search is not None:
+            filters = {'$text': {'$search': search}}
+        else:
+            filters = {}
+
+        if keys.get('filters'):
+            for key_value in (request.args.get('filters', default=None, type=str)).split(','):
+                key = key_value.split(':')[0]
+                value = key_value.split(':')[1]
+                filters[key] = getField(key, value)
+
+    except TypeError:
+        return 'Arguments type error!', status['HTTP_400_BAD_REQUEST']
+    except AttributeError:
+        return 'Argument error!', status['HTTP_400_BAD_REQUEST']
+
+    ret = db_collection.find(
+        filter=filters,
+        projection=(
+            {
+                '_id': False,
+                'score': {'$meta': 'textScore'}
+            }
+            if filters.get('$text') else
+            {
+                '_id': False
+            }
+        ),
+        skip=firstElement - 1,
+        limit=countElement,
+        # sort=sort
+    )
+
+    # Если есть поиск, то сортируем по поиску. Иначе сортировка по переменной сортировки
+    if filters.get('$text'):
+        ret = ret.sort([('score', {'$meta': 'textScore'})])
+    else:
+        ret = ret.sort(sort)
+
+    json_list = list(ret)
+
+    print(f'Count documents: {len(json_list)}')
+    return json.dumps(json_list)
 
 
 @app.route('/medical/<int:id_med>')
 def GetHospital(id_med):
-    print("GetMedical")
+    print('GetMedical')
 
     ret = db_collection.find_one({"id": id_med})
     ret['_id'] = str(ret['_id'])
@@ -141,6 +211,10 @@ def run_update():
     print('Изменение базы закончено!')
 
 
+def run_update_indexes():
+    db.collection.ensureIndex({"subject": "text", "content": "text"})
+
+
 def evaluateMemory():
     max = {}
     keys = db_collection.find_one({}).keys()
@@ -166,11 +240,14 @@ def evaluateMemory():
 if __name__ == "__main__":
     print("App run")
     try:
-        f = open('app/resources.json', 'r')
+        f = open('resources.json', 'r')
         resource = json.load(f)
-        client = pymongo.MongoClient(resource['db_address'], serverSelectionTimeoutMS=5000)
+        client = pymongo.MongoClient(resource['db_address'])
         db = client[resource['db_name']]
         db_collection = db.get_collection(resource['db_collection'])
+
+        # run_update_indexes()
+
         app.run(host=resource['domain'])
 
     except IOError:
