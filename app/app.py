@@ -1,28 +1,9 @@
-# from pymongo import MongoClient
-# import pprint
-#
-# if __name__ == '__main__':
-#
-#     print('Connect to db')
-#     client = MongoClient('mongodb://localhost:27017/')
-#
-#     db = client['demodb']
-#     collection = db['hello_world']
-#
-#     print('Droping collection')
-#     db.drop_collection('demodb')
-#
-#     entry_inserted_id = db.collection.insert_one({"hello": "world"}).inserted_id
-#     print("Inserted entry: " + str(entry_inserted_id))
-#
-#     for a in db.collection.find():
-#         pprint.pprint(a)
 import sys
 from flask import Flask
 from flask import request
+from flask import Response
 import json
 import pymongo
-from pymongo import CursorType
 import logging
 
 app = Flask(__name__)
@@ -43,13 +24,23 @@ int_field = ['id', 'medicalSubjectId', 'grade']
 def hello():
     logging.info("hello")
     args = request.args.get("name", default=None, type=None)
-    return f"Hello {args}!"
+    headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Allow-Methods": "*"
+    }
+
+    app.config['CORS_HEADERS'] = headers
+
+    return Response(f"Hello {args}!", headers=headers)
 
 
 def getField(field, value):
     if field in int_field:
         return int(value)
     return value
+
 
 @app.route('/medical')
 def GetHospitalList():
@@ -107,19 +98,29 @@ def GetHospitalList():
         ),
         skip=firstElement - 1,
         limit=countElement,
-        # sort=sort
+        sort=sort
     )
 
     # Если есть поиск, то сортируем по поиску. Иначе сортировка по переменной сортировки
     if filters.get('$text'):
         ret = ret.sort([('score', {'$meta': 'textScore'})])
-    else:
-        ret = ret.sort(sort)
+    # else:
+    #     ret = ret.sort(sort)
 
     json_list = list(ret)
 
     print(f'Count documents: {len(json_list)}')
-    return json.dumps(json_list)
+
+    headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Allow-Methods": "*"
+    }
+
+    app.config['CORS_HEADERS'] = headers
+
+    return Response(json.dumps(json_list), headers=headers)
 
 
 @app.route('/medical/<int:id_med>')
@@ -128,7 +129,16 @@ def GetHospital(id_med):
 
     ret = db_collection.find_one({"id": id_med})
     ret['_id'] = str(ret['_id'])
-    return json.dumps(ret)
+    headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Allow-Methods": "*"
+    }
+
+    app.config['CORS_HEADERS'] = headers
+
+    return Response(json.dumps(ret), headers=headers)
 
 
 def run_update():
@@ -240,7 +250,7 @@ def evaluateMemory():
 if __name__ == "__main__":
     print("App run")
     try:
-        f = open('resources.json', 'r')
+        f = open('app/resources.json', 'r')
         resource = json.load(f)
         client = pymongo.MongoClient(resource['db_address'])
         db = client[resource['db_name']]
