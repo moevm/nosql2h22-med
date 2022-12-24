@@ -19,19 +19,20 @@ status = {
 
 int_field = ['id', 'medicalSubjectId', 'grade']
 
+headers = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "GET,PUT,POST,OPTIONS",
+    "Access-Control-Allow-Methods": "*"
+}
+
+app.config['CORS_HEADERS'] = headers
+
 
 @app.route("/")
 def hello():
     logging.info("hello")
     args = request.args.get("name", default=None, type=None)
-    headers = {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-        "Access-Control-Allow-Methods": "*"
-    }
-
-    app.config['CORS_HEADERS'] = headers
 
     return Response(f"Hello {args}!", headers=headers)
 
@@ -101,24 +102,28 @@ def GetHospitalList():
         sort=sort
     )
 
-    # Если есть поиск, то сортируем по поиску. Иначе сортировка по переменной сортировки
     if filters.get('$text'):
         ret = ret.sort([('score', {'$meta': 'textScore'})])
-    # else:
-    #     ret = ret.sort(sort)
 
     json_list = list(ret)
 
+    # Если поиск пустой, то поиск еще раз
+    if len(json_list) == 0:
+        filters.pop('$text')
+        ret = db_collection.find(
+            filter=filters,
+            projection=(
+                {
+                    '_id': False
+                }
+            ),
+            skip=firstElement - 1,
+            limit=countElement
+        ).sort([('search_index', 1)])
+        logging.info("Еще запрос")
+        json_list = list(ret)
+
     print(f'Count documents: {len(json_list)}')
-
-    headers = {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-        "Access-Control-Allow-Methods": "*"
-    }
-
-    app.config['CORS_HEADERS'] = headers
 
     return Response(json.dumps(json_list), headers=headers)
 
@@ -129,14 +134,6 @@ def GetHospital(id_med):
 
     ret = db_collection.find_one({"id": id_med})
     ret['_id'] = str(ret['_id'])
-    headers = {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-        "Access-Control-Allow-Methods": "*"
-    }
-
-    app.config['CORS_HEADERS'] = headers
 
     return Response(json.dumps(ret), headers=headers)
 
