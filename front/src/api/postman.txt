@@ -1,0 +1,4 @@
+export const getPosts = async () => {
+    const resources = require("./resources.json")
+    return resources
+}
