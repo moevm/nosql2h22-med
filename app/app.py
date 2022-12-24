@@ -29,7 +29,7 @@ headers = {
 app.config['CORS_HEADERS'] = headers
 
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def hello():
     logging.info("hello")
     args = request.args.get("name", default=None, type=None)
@@ -43,7 +43,7 @@ def getField(field, value):
     return value
 
 
-@app.route('/medical')
+@app.route('/medical', methods=['GET'])
 def GetHospitalList():
     logging.info("GetMedicalList")
     try:
@@ -128,7 +128,27 @@ def GetHospitalList():
     return Response(json.dumps(json_list), headers=headers)
 
 
-@app.route('/medical/<int:id_med>')
+@app.route('/import', methods=['POST'])
+def PostHospitalList():
+    try:
+        data = request.get_json(force=True)
+
+    except TypeError:
+        return 'Arguments type error!', status['HTTP_400_BAD_REQUEST']
+    except AttributeError:
+        return 'Argument error!', status['HTTP_400_BAD_REQUEST']
+
+    matched_count = 0
+    modified_count = 0
+    for document in data:
+        find = db_collection.replace_one({'id': document['id']}, document, True)
+        matched_count += find.matched_count
+        modified_count += find.modified_count
+
+    return Response(f"Import done! Matched count: {matched_count}. Modified count: {modified_count}", headers=headers)
+
+
+@app.route('/medical/<int:id_med>', methods=['GET'])
 def GetHospital(id_med):
     print('GetMedical')
 
@@ -235,19 +255,20 @@ def evaluateMemory():
     for i in keys:
         print(f'{i} : {max[i]} bytes')
 
-    str = 'N * ( '
+    string = 'N * ( '
     summ = 0
     for i in keys:
-        str += f'{max[i]} + '
+        string += f'{max[i]} + '
         summ += max[i]
-    str = (str[:-2] + ')' + f' = N * {summ}')
-    print(str)
+    string = (string[:-2] + ')' + f' = N * {summ}')
+    print(string)
 
 
 if __name__ == "__main__":
     print("App run")
     try:
-        f = open('app/resources.json', 'r')
+        # f = open('app/resources.json', 'r')
+        f = open('resources.json', 'r')
         resource = json.load(f)
         client = pymongo.MongoClient(resource['db_address'])
         db = client[resource['db_name']]
