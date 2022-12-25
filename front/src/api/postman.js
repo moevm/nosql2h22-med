@@ -1,5 +1,6 @@
 // 
 import axios from 'axios';
+import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 // export function getHospitals() {
 //     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -18,33 +19,86 @@ import axios from 'axios';
 //     return hospitals;
 // }
 
-export const getPosts = async (value) => {
+export const getMedicalbyId = async (id) => {
     const headers = {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
     }
-    // axios.get('https://api.npms.io/v2/search?q=react')
-    //     .then(response => this.setState({ totalReactPackages: response.data.total }));
-    // eslint-disable-next-line react-hooks/rules-of-hooks
 
+    const apiURL = "http://127.0.0.1:5000/medical/" + id;
 
-    const apiURL = "http://127.0.0.1:5000/medical?search=" + value;
     const response = await axios.get(apiURL, headers)
 
     return response
-    // const response = await axios.get(apiURL, headers)
+}
 
-    // const hospitals = response.data;
+export const getCities = async () => {
+    const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+    }
 
-    // return hospitals
-    // let headers = {
-    //     "Access-Control-Allow-Origin": "*",
-    //     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-    // }
-    // let ret = fetch('http://127.0.0.1:5000/medical', config.headers)
-    //
-    //
-    // return JSON.parse(ret)
-    // return require("./resources.json")
+    const apiURL = "http://127.0.0.1:5000/internal/getCities";
+    const response = await axios.get(apiURL, headers)
+
+    return response
+}
+
+export const getSpecialties = async () => {
+    const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+    }
+
+    const apiURL = "http://127.0.0.1:5000/internal/getSpecialties";
+    const response = await axios.get(apiURL, headers)
+
+    return response
+}
+
+export const getPosts = async (searchValue, specializationFilter, cityFilter, timeFilter, sortAttribute) => {
+    const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+    }
+
+    var apiURL = "http://127.0.0.1:5000/medical"
+    if (searchValue === "" && specializationFilter === "" && cityFilter === "" && timeFilter === "" && sortAttribute === "") {
+    }
+    else {
+        apiURL += "?";
+        if (specializationFilter !== "" || cityFilter !== "" || timeFilter !== "") {
+            apiURL += "filters=";
+
+            if (specializationFilter !== "" ) {
+                apiURL += "specialties:" + specializationFilter + ",";
+            }
+            if (cityFilter !== "" ) {
+                apiURL += "regionName:" + cityFilter + ",";
+            }
+            if (timeFilter !== "" ) {
+            }
+
+            apiURL = apiURL.slice(0, -1) + "&"
+        }
+
+        if (sortAttribute !== "") {
+            apiURL += "sort=" + sortAttribute + ":1&";
+        }
+
+        if (searchValue !== "") {
+            apiURL += "search=" + searchValue + "&";
+            
+        }
+
+        apiURL = apiURL.slice(0, -1);
+    }
+
+    const response = await axios.get(apiURL, headers)
+
+    return response
 }
