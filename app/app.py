@@ -262,20 +262,39 @@ def evaluateMemory():
         summ += max[i]
     string = (string[:-2] + ')' + f' = N * {summ}')
     print(string)
+<<<<<<< HEAD
+
+
+@app.route('/internal/getCities', methods=['GET'])
+def getCities():
+    cities = db_collection.distinct('addr.addrRegionName')
+    return Response(json.dumps(cities), headers=headers)
+
+
+@app.route('/internal/getSpecialties', methods=['GET'])
+def getSpecialties():
+    specialties = db_collection.distinct('specialties')
+    return Response(json.dumps(specialties), headers=headers)
+=======
+>>>>>>> 18d0c8db28444e0afad013f7ce7a1b0a8267e500
 
 
 if __name__ == "__main__":
     print("App run")
     try:
+<<<<<<< HEAD
+        f = open('app/resources.json', 'r')
+        # f = open('resources.json', 'r')
+=======
         # f = open('app/resources.json', 'r')
         f = open('resources.json', 'r')
+>>>>>>> 18d0c8db28444e0afad013f7ce7a1b0a8267e500
         resource = json.load(f)
         client = pymongo.MongoClient(resource['db_address'])
         db = client[resource['db_name']]
         db_collection = db.get_collection(resource['db_collection'])
 
         # run_update_indexes()
-
         app.run(host=resource['domain'])
 
     except IOError:
