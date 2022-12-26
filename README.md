@@ -6,6 +6,12 @@ ___
 ___
 ## Скринкаст 'hello world'.
 [📺📺📺📺📺 ](https://disk.yandex.ru/i/qXLKR7x_izH3jQ) <-- 'тык'
+
+___
+## Скринкаст прототипа.
+[📺📺📺📺📺 ](https://disk.yandex.ru/i/guZ_C9hXcqiV9A) <-- 'тык'
+
+https://disk.yandex.ru/i/guZ_C9hXcqiV9A
 ___
 ## UX/UI-Дизайн Проекта.
 ![UX/UI-Дизайн](Ui+Ux.png)
