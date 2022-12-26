@@ -1,6 +1,7 @@
 import { getCities, getPosts, getSpecialties } from '../api/postman'
 import { useEffect, useState } from 'react'
-import { GiModernCity } from "react-icons/gi"
+import { Link } from "react-router-dom";
+import { BiImport, BiExport } from "react-icons/bi"
 import Post from "../Components/Post"
 
 const getCitiesPromise = getCities().then(({ data }) => data);
@@ -8,6 +9,7 @@ const getSpecialtiesPromise = getSpecialties().then(({ data }) => data);
 
 const Homepage = () => {
 
+    const [searchValue, setSearchValue] = useState("")
     const [specializationFilter, setSpecializationFilter] = useState("")
     const [cityFilter, setCityFilter] = useState("")
     const [timeFilter, setTimeFilter] = useState("")
@@ -43,6 +45,7 @@ const Homepage = () => {
     }
 
     const handleSearchChange = (e) => {
+        setSearchValue(e.target.value)
         if (!e.target.value) return setSearchResults([])
         
         getPosts(e.target.value, specializationFilter, cityFilter, timeFilter, sortAttribute).then((response) => {
@@ -50,10 +53,35 @@ const Homepage = () => {
         })
     };
 
+    const handleClick = (e) => {
+        getPosts(searchValue, specializationFilter, cityFilter, timeFilter, sortAttribute).then((response) => {
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(
+                new Blob([JSON.stringify(response.data)], {type: "application/json"})
+            );
+            link.download = "data.json";
+            document.body.appendChild(link);
+
+            link.click();
+        })
+    };
+
     const results = searchResults.map(post => <Post key={post.id} post={post} />)
 
     const content = (
     <div className="homepage container">
+        <Link to={`/importexport`}>
+            <BiImport/>
+            Import Files
+        </Link>
+        {results?.length
+                ?
+                <div className="export-button" onClick={handleClick}>
+                    <BiExport/>
+                    Export Files
+                </div>
+                : <></>
+        }
         <div className="search-bar">
             <form className="search">
                 <input
@@ -71,8 +99,8 @@ const Homepage = () => {
                     value={specializationFilter}
                 >
                     <option value=""></option>
-                    {specialties.map((specialization) => {
-                        return <option value={specialization}>{specialization}</option>;
+                    {specialties.map((specialization, index) => {
+                        return <option key={index} value={specialization}>{specialization}</option>;
                     })}
                 </select>
                 <select 
@@ -81,8 +109,8 @@ const Homepage = () => {
                     value={cityFilter}
                 >
                     <option value=""></option>
-                    {cities.map((city) => {
-                        return <option value={city}>{city}</option>;
+                    {cities.map((city, index) => {
+                        return <option key={index} value={city}>{city}</option>;
                     })}
                 </select>
                 <select 

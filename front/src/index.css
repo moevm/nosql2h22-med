@@ -58,6 +58,13 @@ body {
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, .2);
 }
 
+.importexportpage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
 .sort-dialog {
   text-align: center;
   appearance: none;
@@ -156,6 +163,31 @@ body {
   margin: auto auto; 
   width: 150px;
   height: 150px;
+}
+
+.drop-area {
+  width: 20vw;
+  height: 20vw;
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.drop-area#active {
+  transform: scale(105%);
+  box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, .2);
+}
+
+.drop-area-content {
+  display: inline;
+}
+
+.export-button {
+  cursor: pointer;
 }
 
 ul {

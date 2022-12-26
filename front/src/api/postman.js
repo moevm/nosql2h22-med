@@ -19,6 +19,19 @@ import { AiOutlineConsoleSql } from 'react-icons/ai';
 //     return hospitals;
 // }
 
+
+export const importFiles = async (file) => {
+    const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+    }
+
+    const apiURL = "http://127.0.0.1:5000/import";
+
+    await axios.post(apiURL, headers, file)
+}
+
 export const getMedicalbyId = async (id) => {
     const headers = {
         "Content-Type": "application/json",
@@ -59,7 +72,11 @@ export const getSpecialties = async () => {
     return response
 }
 
-export const getPosts = async (searchValue, specializationFilter, cityFilter, timeFilter, sortAttribute) => {
+export const getPosts = async (searchValue, specializationFilter, cityFilter, timeFilter, sortAttribute, count=20) => {
+
+    console.log(searchValue)
+    console.log(specializationFilter)
+
     const headers = {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -95,8 +112,13 @@ export const getPosts = async (searchValue, specializationFilter, cityFilter, ti
             
         }
 
+        apiURL += "countElement=" + count + "&";
+
         apiURL = apiURL.slice(0, -1);
+
     }
+
+    console.log(apiURL)
 
     const response = await axios.get(apiURL, headers)
 
