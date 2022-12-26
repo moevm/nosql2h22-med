@@ -1,12 +1,17 @@
 import sys
-from flask import Flask
-from flask import request
-from flask import Response
+from flask import Flask, request, Response, redirect, url_for
+from werkzeug.utils import secure_filename
+import os
 import json
 import pymongo
 import logging
 
+UPLOAD_FOLDER = 'files/'
+ALLOWED_EXTENSIONS = ['json']
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 client = None
 db = None
 db_collection = None
@@ -130,23 +135,54 @@ def GetHospitalList():
 
 @app.route('/import', methods=['POST'])
 def PostHospitalList():
-    try:
-        data = request.get_json(force=True)
 
+    # Записываем файл
+    try:
+        # data = request.get_json(force=True)
+
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            print('no file')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            print('no filename')
+            return redirect(request.url)
+        else:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     except TypeError:
         return 'Arguments type error!', status['HTTP_400_BAD_REQUEST']
     except AttributeError:
         return 'Argument error!', status['HTTP_400_BAD_REQUEST']
 
-    matched_count = 0
-    modified_count = 0
-    for document in data:
-        find = db_collection.replace_one({'id': document['id']}, document, True)
-        matched_count += find.matched_count
-        modified_count += find.modified_count
+    # Считываем файл
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), 'rb') as file_read:
+        data = file_read.read()
+        # data = list(json.dumps(data))
+        data = json.loads(data)
+        matched_count = 0
+        modified_count = 0
+        for document in data:
+            document['id'] = int(document['id'])
+            document['medicalSubjectId'] = int(document['medicalSubjectId'])
+            document['grade'] = int(document['grade'])
+            document['regionId'] = int(document['regionId'])
+            document['moAgencyKindId'] = int(document['moAgencyKindId'])
+            if document.get('addr'):
+                document['addr']['fiasVersion'] = int(document['addr']['fiasVersion'])
+                document['addr']['addrRegionId'] = int(document['addr']['addrRegionId'])
+                document['addr']['territoryCode'] = int(document['addr']['territoryCode'])
+            find = db_collection.replace_one({'id': document['id']}, document, True)
+            matched_count += find.matched_count
+            modified_count += find.modified_count
+
+    # Удаляем файл
+    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
     return Response(f"Import done! Matched count: {matched_count}. Modified count: {modified_count}", headers=headers)
-
 
 @app.route('/medical/<int:id_med>', methods=['GET'])
 def GetHospital(id_med):
