@@ -29,27 +29,40 @@ const Homepage = () => {
     }, [])
 
     const handleSelectSpecializationFilterChange = (e) => {
-        setSpecializationFilter(e.target.value)
+        setSpecializationFilter(e.target.value);
+        getPosts(searchValue, e.target.value, cityFilter, timeFilter, sortAttribute).then((response) => {
+            setSearchResults(response.data);
+        })
     }
 
     const handleSelectCityFilterChange = (e) => {
-        setCityFilter(e.target.value)
+        setCityFilter(e.target.value);
+        getPosts(searchValue, specializationFilter, e.target.value, timeFilter, sortAttribute).then((response) => {
+            setSearchResults(response.data);
+        })
     }
 
     const handleTimeFilterChange = (e) => {
-        setTimeFilter(e.target.value)
+        setTimeFilter(e.target.value);
+        getPosts(searchValue, specializationFilter, cityFilter, e.target.value, sortAttribute).then((response) => {
+            setSearchResults(response.data);
+        })
     }
 
     const handleSelectSortChange = (e) => {
-        setSortAttribute(e.target.value)
+        setSortAttribute(e.target.value);
+        getPosts(searchValue, specializationFilter, cityFilter, timeFilter, e.target.value).then((response) => {
+            setSearchResults(response.data);
+        })
     }
 
     const handleSearchChange = (e) => {
-        setSearchValue(e.target.value)
+        setSearchValue(e.target.value);
+
         if (!e.target.value) return setSearchResults([])
-        
+
         getPosts(e.target.value, specializationFilter, cityFilter, timeFilter, sortAttribute).then((response) => {
-            setSearchResults(response.data)
+            setSearchResults(response.data);
         })
     };
 
