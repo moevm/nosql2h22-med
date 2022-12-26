@@ -1,12 +1,18 @@
 import sys
-from flask import Flask
-from flask import request
-from flask import Response
+from flask import Flask, request, Response, redirect, url_for
+from werkzeug.utils import secure_filename
+import os
 import json
 import pymongo
 import logging
 
+
+UPLOAD_FOLDER = 'files/'
+ALLOWED_EXTENSIONS = ['json']
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 client = None
 db = None
 db_collection = None
@@ -35,6 +41,11 @@ def hello():
     args = request.args.get("name", default=None, type=None)
 
     return Response(f"Hello {args}!", headers=headers)
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
 def getField(field, value):
@@ -85,43 +96,81 @@ def GetHospitalList():
     except AttributeError:
         return 'Argument error!', status['HTTP_400_BAD_REQUEST']
 
-    ret = db_collection.find(
-        filter=filters,
-        projection=(
-            {
-                '_id': False,
-                'score': {'$meta': 'textScore'}
-            }
-            if filters.get('$text') else
-            {
-                '_id': False
-            }
-        ),
-        skip=firstElement - 1,
-        limit=countElement,
-        sort=sort
-    )
+    if countElement != 0:
+        ret = db_collection.find(
+            filter=filters,
+            projection=(
+                {
+                    '_id': False,
+                    'score': {'$meta': 'textScore'}
+                }
+                if filters.get('$text') else
+                {
+                    '_id': False
+                }
+            ),
+            skip=firstElement - 1,
+            limit=countElement,
+            # sort=sort
+        )
 
-    if filters.get('$text'):
-        ret = ret.sort([('score', {'$meta': 'textScore'})])
+        if filters.get('$text'):
+            ret = ret.sort([('score', {'$meta': 'textScore'})])
+
+        if len(sort) != 0:
+            ret = ret.sort(sort)
+
+    else:
+        ret = db_collection.find(
+            filter=filters,
+            projection=(
+                {
+                    '_id': False,
+                    'score': {'$meta': 'textScore'}
+                }
+                if filters.get('$text') else
+                {
+                    '_id': False
+                }
+            ),
+            skip=firstElement - 1,
+            # sort=sort
+        )
 
     json_list = list(ret)
 
     # Если поиск пустой, то поиск еще раз
     if len(json_list) == 0:
         filters.pop('$text')
-        ret = db_collection.find(
-            filter=filters,
-            projection=(
-                {
-                    '_id': False
-                }
-            ),
-            skip=firstElement - 1,
-            limit=countElement
-        ).sort([('search_index', 1)])
+
+        if countElement != 0:
+            ret = db_collection.find(
+                filter=filters,
+                projection=(
+                    {
+                        '_id': False
+                    }
+                ),
+                skip=firstElement - 1,
+                limit=countElement
+            ).sort([('search_index', 1)])
+        else:
+            sort.append(('search_index', 1))
+            ret = db_collection.find(
+                filter=filters,
+                projection=(
+                    {
+                        '_id': False
+                    }
+                ),
+                skip=firstElement - 1,
+                sort=sort
+            )
+
         logging.info("Еще запрос")
         json_list = list(ret)
+        if len(sort) != 0:
+            ret = ret.sort(sort)
 
     print(f'Count documents: {len(json_list)}')
 
@@ -130,22 +179,40 @@ def GetHospitalList():
 
 @app.route('/import', methods=['POST'])
 def PostHospitalList():
+    filename = ''
     try:
-        data = request.get_json(force=True)
+        # data = request.get_json(force=True)
 
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            print('no file')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            print('no filename')
+            return redirect(request.url)
+        else:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     except TypeError:
         return 'Arguments type error!', status['HTTP_400_BAD_REQUEST']
     except AttributeError:
         return 'Argument error!', status['HTTP_400_BAD_REQUEST']
 
-    matched_count = 0
-    modified_count = 0
-    for document in data:
-        find = db_collection.replace_one({'id': document['id']}, document, True)
-        matched_count += find.matched_count
-        modified_count += find.modified_count
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), 'r') as file_read:
+        data = file_read.read()
+        data = json.dumps(data)
+        matched_count = 0
+        modified_count = 0
+        for document in data:
+            find = db_collection.replace_one({'id': document['id']}, document, True)
+            matched_count += find.matched_count
+            modified_count += find.modified_count
 
     return Response(f"Import done! Matched count: {matched_count}. Modified count: {modified_count}", headers=headers)
+    # return "Ok!"
 
 
 @app.route('/medical/<int:id_med>', methods=['GET'])
@@ -262,6 +329,18 @@ def evaluateMemory():
         summ += max[i]
     string = (string[:-2] + ')' + f' = N * {summ}')
     print(string)
+
+
+@app.route('/internal/getCities', methods=['GET'])
+def getCities():
+    cities = db_collection.distinct('addr.addrRegionName')
+    return Response(json.dumps(cities), headers=headers)
+
+
+@app.route('/internal/getSpecialties', methods=['GET'])
+def getSpecialties():
+    specialties = db_collection.distinct('specialties')
+    return Response(json.dumps(specialties), headers=headers)
 
 
 if __name__ == "__main__":
