@@ -354,7 +354,6 @@ if __name__ == "__main__":
         db_collection = db.get_collection(resource['db_collection'])
 
         # run_update_indexes()
-
         app.run(host=resource['domain'])
 
     except IOError:

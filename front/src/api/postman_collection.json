@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "56644ada-7bfc-41be-9ee8-7951de80acfa",
+		"name": "ВВнБД",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21957490"
+	},
+	"item": [
+		{
+			"name": "app",
+			"item": [
+				{
+					"name": "/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/?name=Katuhaaaa",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Katuhaaaa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMedical",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/medical/1732",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"medical",
+								"1732"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMedicalList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/medical?filters=regionId:22,grade:5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"medical"
+							],
+							"query": [
+								{
+									"key": "firstElement",
+									"value": "1",
+									"description": "индекс первого элемента(начиния с 1)",
+									"disabled": true
+								},
+								{
+									"key": "countElement",
+									"value": "100",
+									"description": "количество получаемых элементов",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "nameFull:1",
+									"description": "сортировка. шаблон:  (<имя поля1>:<порядок сортировки>)",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "Акушерская",
+									"description": "поиск",
+									"disabled": true
+								},
+								{
+									"key": "filters",
+									"value": "regionId:22,grade:5",
+									"description": "фильтрация. поля передаются через запятую. шаблон: (<имя поля1>:<значение>)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostMedicalList",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": 1683,\r\n        \"nameFull\": \"Краевое государственное бюджетное учреждение здравоохранения 'Алтайский краевой онкологический диспансер'\",\r\n        \"nameShort\": \"КГБУЗ 'АКОД'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2225022328\",\r\n        \"kpp\": \"222501001\",\r\n        \"ogrn\": \"1022201769809\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"30.11.2022\",\r\n        \"moAgencyKindId\": \"23\",\r\n        \"moAgencyKind\": \"Диспансер\",\r\n        \"aoidArea\": \"f095c016-e2ec-4373-850d-e6294c17ce8c\",\r\n        \"areaName\": \"Барнаул\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"челюстно-лицевая хирургия\",\r\n            \"клиническая фармакология\",\r\n            \"эпидемиология\",\r\n            \"наркология\",\r\n            \"сурдология-оториноларингология\",\r\n            \"терапия\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"656045\",\r\n            \"latitude\": \"53.280872\",\r\n            \"longtitude\": \"83.746107\",\r\n            \"fiasVersion\": 562,\r\n            \"aoidStreet\": \"ac479a27-a1cb-4a67-a4fc-968ed8d7e671\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Змеиногорский\",\r\n            \"prefixStreet\": \"тракт\",\r\n            \"house\": \"110к\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8269,\r\n        \"nameFull\": \"Государственное бюджетное образовательное учреждение среднего профессионального образования «Базовый медицинский колледж Алтайского края – центр повышения квалификации работников здравоохранения»\",\r\n        \"nameShort\": \"Центр повышения квалификации работников здравоохранения\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2208003269\",\r\n        \"kpp\": \"220801001\",\r\n        \"ogrn\": \"1022200768853\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"20.12.2021\",\r\n        \"moAgencyKindId\": \"1\",\r\n        \"moAgencyKind\": \"Больница (в том числе детская)\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"ультразвуковая диагностика\",\r\n            \"эндокринология\",\r\n            \"офтальмология\",\r\n            \"колопроктология\",\r\n            \"педиатрия\"\r\n        ]\r\n    },\r\n    {\r\n        \"id\": 8291,\r\n        \"nameFull\": \"Краевое государственное бюджетное учреждение здравоохранения 'Алтайский краевой наркологический диспансер'\",\r\n        \"nameShort\": \"КГБУЗ 'Алтайский краевой наркологический диспансер'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2225036708\",\r\n        \"kpp\": \"222501001\",\r\n        \"ogrn\": \"1022201771261\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"29.09.2022\",\r\n        \"moAgencyKindId\": \"23\",\r\n        \"moAgencyKind\": \"Диспансер\",\r\n        \"cadastralNumber\": \"22:63:000000:0000\",\r\n        \"aoidArea\": \"f095c016-e2ec-4373-850d-e6294c17ce8c\",\r\n        \"areaName\": \"Барнаул\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"гастроэнтерология\",\r\n            \"эндоскопия\",\r\n            \"детская онкология\",\r\n            \"общая врачебная практика (семейная медицина)\",\r\n            \"медицинская оптика\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"656049\",\r\n            \"latitude\": \"53.330375\",\r\n            \"longtitude\": \"83.793394\",\r\n            \"fiasVersion\": 332,\r\n            \"aoidStreet\": \"2a641da7-08c0-4547-9e80-9d46dd18c5fa\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Льва Толстого\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"23\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8328,\r\n        \"nameFull\": \"краевое государственное бюджетное учреждение здравоохранения 'Детская туберкулезная больница'\",\r\n        \"nameShort\": \"КГБУЗ 'Детская туберкулезная больница'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2221060298\",\r\n        \"kpp\": \"222501001\",\r\n        \"ogrn\": \"1042202160560\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"29.09.2022\",\r\n        \"moAgencyKindId\": \"4\",\r\n        \"moAgencyKind\": \"Специализированная больница\",\r\n        \"aoidArea\": \"f095c016-e2ec-4373-850d-e6294c17ce8c\",\r\n        \"areaName\": \"Барнаул\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"психиатрия-наркология\",\r\n            \"онкология\",\r\n            \"клиническая лабораторная диагностика\",\r\n            \"нейрохирургия\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"656906\",\r\n            \"latitude\": \"53.265773\",\r\n            \"longtitude\": \"83.676569\",\r\n            \"fiasVersion\": 332,\r\n            \"aoidStreet\": \"ec3d7bf2-2a1f-4dec-804f-d0f362d0e92b\",\r\n            \"houseid\": \"9005cdf2-3632-4cb0-aea7-8c0aef657432\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Лесосечная\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"26\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8511,\r\n        \"nameFull\": \"краевое государственное бюджетное учреждение здравоохранения 'Красногорская центральная районная больница'\",\r\n        \"nameShort\": \"КГБУЗ 'Красногорская ЦРБ'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2250002043\",\r\n        \"kpp\": \"225001001\",\r\n        \"ogrn\": \"1022201945215\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"29.09.2022\",\r\n        \"moAgencyKindId\": \"1\",\r\n        \"moAgencyKind\": \"Больница (в том числе детская)\",\r\n        \"cadastralNumber\": \"22:20:0302012:31\",\r\n        \"aoidArea\": \"45fea7c9-619d-4798-8671-f746ec51fcbb\",\r\n        \"areaName\": \"Красногорское\",\r\n        \"prefixArea\": \"с\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"функциональная диагностика\",\r\n            \"паразитология\",\r\n            \"педиатрия\",\r\n            \"водолазная медицина\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"659500\",\r\n            \"latitude\": \"52.296319\",\r\n            \"longtitude\": \"86.201894\",\r\n            \"fiasVersion\": 331,\r\n            \"aoidStreet\": \"d521cf96-ae51-46a5-b854-d5d2df5dc38d\",\r\n            \"houseid\": \"9e66446d-7a88-46dc-bf42-f8207f6031d6\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Советская\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"110\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8528,\r\n        \"nameFull\": \"Краевое государственное бюджетное учреждение здравоохранения 'Центральная районная больница с. Родино'\",\r\n        \"nameShort\": \"КГБУЗ 'Центральная районная больница с.Родино'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2267001873\",\r\n        \"kpp\": \"226701001\",\r\n        \"ogrn\": \"1022202576230\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"30.11.2022\",\r\n        \"moAgencyKindId\": \"1\",\r\n        \"moAgencyKind\": \"Больница (в том числе детская)\",\r\n        \"aoidArea\": \"bf8b7204-60a3-4c38-a227-0bf47b7d850d\",\r\n        \"areaName\": \"Родино\",\r\n        \"prefixArea\": \"с\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"социальная гигиена\",\r\n            \"психотерапия\",\r\n            \"пульмонология\",\r\n            \"детская хирургия\",\r\n            \"гематология\",\r\n            \"наркология\",\r\n            \"сурдология-оториноларингология\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"659780\",\r\n            \"latitude\": \"52.499899\",\r\n            \"longtitude\": \"80.201751\",\r\n            \"fiasVersion\": 331,\r\n            \"aoidStreet\": \"017c0a51-2e7c-4d00-964b-691d415b3e25\",\r\n            \"houseid\": \"094e9bde-8461-4c1b-b799-da862aac6084\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Сухова\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"15\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8683,\r\n        \"nameFull\": \"краевое государственное бюджетное учреждение здравоохранения 'Городская больница № 4 имени Н.П. Гулла, г. Барнаул'\",\r\n        \"nameShort\": \"КГБУЗ 'Городская больница № 4 имени Н.П. Гулла, г. Барнаул'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2222014784\",\r\n        \"kpp\": \"222201001\",\r\n        \"ogrn\": \"1022201138035\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"30.11.2022\",\r\n        \"moAgencyKindId\": \"1\",\r\n        \"moAgencyKind\": \"Больница (в том числе детская)\",\r\n        \"cadastralNumber\": \"22:63:010603:623\",\r\n        \"aoidArea\": \"f095c016-e2ec-4373-850d-e6294c17ce8c\",\r\n        \"areaName\": \"Барнаул\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"фтизиатрия\",\r\n            \"терапия\",\r\n            \"инфекционные болезни\",\r\n            \"общая врачебная практика (семейная медицина)\",\r\n            \"пульмонология\",\r\n            \"санитария и эпидемиология\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"656050\",\r\n            \"latitude\": \"53.365633\",\r\n            \"longtitude\": \"83.716472\",\r\n            \"fiasVersion\": 332,\r\n            \"aoidStreet\": \"636ba930-eeb9-4a9b-9168-73b09a667756\",\r\n            \"houseid\": \"10379a83-df11-40af-aa27-d6cf5b611ea4\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Юрина\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"166А\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8687,\r\n        \"nameFull\": \"Краевое государственное бюджетное учреждение здравоохранения 'Городская клиническая больница № 11, г. Барнаул'\",\r\n        \"nameShort\": \"КГБУЗ 'Городская клиническая больница № 11, г. Барнаул'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2223021150\",\r\n        \"kpp\": \"222301001\",\r\n        \"ogrn\": \"1022201386272\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"deleteDate\": \"13.01.2022\",\r\n        \"deleteReason\": \"Реорганизация организации\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"13.01.2022\",\r\n        \"moAgencyKindId\": \"1\",\r\n        \"moAgencyKind\": \"Больница (в том числе детская)\",\r\n        \"aoidArea\": \"f095c016-e2ec-4373-850d-e6294c17ce8c\",\r\n        \"areaName\": \"Барнаул\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"паразитология\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"656050\",\r\n            \"latitude\": \"53.368754\",\r\n            \"longtitude\": \"83.711791\",\r\n            \"fiasVersion\": 331,\r\n            \"aoidStreet\": \"cbf40a85-e560-4e0a-844a-266cac091e96\",\r\n            \"houseid\": \"fc4bd34a-9b17-4ec5-b004-908a78e869de\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Малахова\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"51\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8701,\r\n        \"nameFull\": \"краевое государственное бюджетное учреждение здравоохранения 'Детская городская клиническая больница № 7, г. Барнаул'\",\r\n        \"nameShort\": \"КГБУЗ 'ДГКБ № 7, г. Барнаул'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2221004871\",\r\n        \"kpp\": \"222101001\",\r\n        \"ogrn\": \"1022200897762\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"30.11.2022\",\r\n        \"moAgencyKindId\": \"1\",\r\n        \"moAgencyKind\": \"Больница (в том числе детская)\",\r\n        \"cadastralNumber\": \"22:63:010632:1409\",\r\n        \"aoidArea\": \"f095c016-e2ec-4373-850d-e6294c17ce8c\",\r\n        \"areaName\": \"Барнаул\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"вирусология\",\r\n            \"рентгенэндоваскулярная диагностика и лечение\",\r\n            \"неонатология\",\r\n            \"лечебная физкультура и спортивная медицина\",\r\n            \"профпатология\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"656050\",\r\n            \"latitude\": \"53.357083\",\r\n            \"longtitude\": \"83.720352\",\r\n            \"fiasVersion\": 331,\r\n            \"aoidStreet\": \"8a236268-1a02-4f97-8a51-76c2cd6cbb3b\",\r\n            \"houseid\": \"8b69d724-fdf2-43a0-9b81-ac6211a79694\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Северо-Западная\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"230А\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8711,\r\n        \"nameFull\": \"Частное учреждение здравоохранения «Клиническая больница «РЖД-Медицина» города Барнаул»\",\r\n        \"nameShort\": \"ЧУЗ «КБ «РЖД-Медицина» г.Барнаул»\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2221063789\",\r\n        \"kpp\": \"222101001\",\r\n        \"ogrn\": \"1042201871579\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"30.11.2022\",\r\n        \"moAgencyKindId\": \"1\",\r\n        \"moAgencyKind\": \"Больница (в том числе детская)\",\r\n        \"aoidArea\": \"f095c016-e2ec-4373-850d-e6294c17ce8c\",\r\n        \"areaName\": \"Барнаул\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"клиническая лабораторная диагностика\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"656038\",\r\n            \"latitude\": \"53.349752\",\r\n            \"longtitude\": \"83.776785\",\r\n            \"fiasVersion\": 335,\r\n            \"aoidStreet\": \"9636425a-caed-4294-bc55-06e513772e41\",\r\n            \"houseid\": \"e56af2f0-f0c6-41ed-9666-368f893f1d01\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Молодежная\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"20\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8745,\r\n        \"nameFull\": \"краевое государственное бюджетное учреждение здравоохранения 'Детская туберкулезная больница, г. Бийск'\",\r\n        \"nameShort\": \"КГБУЗ 'Детская туберкулезная больница, г. Бийск'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2226025890\",\r\n        \"kpp\": \"220401001\",\r\n        \"ogrn\": \"1022200553891\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"29.09.2022\",\r\n        \"moAgencyKindId\": \"4\",\r\n        \"moAgencyKind\": \"Специализированная больница\",\r\n        \"aoidArea\": \"0e50cc94-d6a3-47d2-a024-070fed7adddc\",\r\n        \"areaName\": \"Бийск\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"физиотерапия\",\r\n            \"ортодонтия\",\r\n            \"водолазная медицина\",\r\n            \"урология\",\r\n            \"трансфузиология\",\r\n            \"психиатрия-наркология\",\r\n            \"неврология\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"659301\",\r\n            \"latitude\": \"52.528067\",\r\n            \"longtitude\": \"85.240517\",\r\n            \"fiasVersion\": 331,\r\n            \"aoidStreet\": \"9c0dc47f-f4ea-4147-9b15-5c995017102d\",\r\n            \"houseid\": \"7874795f-7ccd-44c4-9edd-6abdba90225d\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Алексея Кольцова\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"4а\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8747,\r\n        \"nameFull\": \"краевое государственное бюджетное учреждение здравоохранения 'Консультативно-диагностический центр, г.Бийск'\",\r\n        \"nameShort\": \"КГБУЗ 'Консультативно-диагностический центр, г.Бийск'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2204001711\",\r\n        \"kpp\": \"220401001\",\r\n        \"ogrn\": \"1022200554903\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"29.09.2022\",\r\n        \"moAgencyKindId\": \"43\",\r\n        \"moAgencyKind\": \"Центр (Лечебно-профилактические медицинские организации)\",\r\n        \"aoidArea\": \"0e50cc94-d6a3-47d2-a024-070fed7adddc\",\r\n        \"areaName\": \"Бийск\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"медицинская оптика\",\r\n            \"лечебная физкультура и спортивная медицина\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"659306\",\r\n            \"latitude\": \"52.535397\",\r\n            \"longtitude\": \"85.216541\",\r\n            \"fiasVersion\": 331,\r\n            \"aoidStreet\": \"464e53a8-c048-423a-9c7a-e08424f0f58a\",\r\n            \"houseid\": \"93d1d270-09f2-41ed-a9d0-3b6355d7a21b\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Советская\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"33\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8754,\r\n        \"nameFull\": \"Краевое государственное бюджетное учреждение здравоохранения 'Санаторный оздоровительный лагерь круглогодичного действия 'Чайка'\",\r\n        \"nameShort\": \"КГБУЗ СОЛКД 'Чайка'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2226025480\",\r\n        \"kpp\": \"223401001\",\r\n        \"ogrn\": \"1022200573482\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"29.09.2022\",\r\n        \"moAgencyKindId\": \"85\",\r\n        \"moAgencyKind\": \"Санаторно-курортные организации\",\r\n        \"aoidArea\": \"60d75b3c-3a5c-4270-a481-8eae67061362\",\r\n        \"areaName\": \"Малоенисейский\",\r\n        \"prefixArea\": \"с/с\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"детская урология-андрология\",\r\n            \"вирусология\",\r\n            \"лабораторная микология\",\r\n            \"клиническая фармакология\",\r\n            \"психиатрия и судебно-психиатрическая экспертиза\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"659370\",\r\n            \"latitude\": \"52.129671\",\r\n            \"longtitude\": \"82.530013\",\r\n            \"fiasVersion\": 331,\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"house\": \"102\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8759,\r\n        \"nameFull\": \"Краевое государственное бюджетное учреждение здравоохранения 'Городская больница №3, г.Бийск'\",\r\n        \"nameShort\": \"КГБУЗ 'Городская больница №3, г.Бийск'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2226021246\",\r\n        \"kpp\": \"220401001\",\r\n        \"ogrn\": \"1022200556840\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"01.12.2022\",\r\n        \"moAgencyKindId\": \"1\",\r\n        \"moAgencyKind\": \"Больница (в том числе детская)\",\r\n        \"aoidArea\": \"0e50cc94-d6a3-47d2-a024-070fed7adddc\",\r\n        \"areaName\": \"Бийск\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"сексология\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"659328\",\r\n            \"latitude\": \"52.518802\",\r\n            \"longtitude\": \"85.167080\",\r\n            \"fiasVersion\": 331,\r\n            \"aoidStreet\": \"0caad898-b2ac-4420-bedc-12f4fa5f5f22\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Виктора Петрова\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"30\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8769,\r\n        \"nameFull\": \"НУЗ Узловая поликлиника на ст. Бийск\",\r\n        \"nameShort\": \"НУЗ УП Бийск\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2204018313\",\r\n        \"kpp\": \"220401001\",\r\n        \"ogrn\": \"1042201647597\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"10.03.2022\",\r\n        \"moAgencyKindId\": \"1\",\r\n        \"moAgencyKind\": \"Больница (в том числе детская)\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"лечебная физкультура и спортивная медицина\"\r\n        ]\r\n    },\r\n    {\r\n        \"id\": 8784,\r\n        \"nameFull\": \"Краевое государственное бюджетное учреждение здравоохранения 'Краевой Центр общественного здоровья и медицинской профилактики'\",\r\n        \"nameShort\": \"КГБУЗ 'Краевой Центр общественного здоровья и медицинской профилактики'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2204025039\",\r\n        \"kpp\": \"222501001\",\r\n        \"ogrn\": \"1062204014212\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"30.11.2022\",\r\n        \"moAgencyKindId\": \"93\",\r\n        \"moAgencyKind\": \"Центр (Медицинские организации особого типа)\",\r\n        \"aoidArea\": \"f095c016-e2ec-4373-850d-e6294c17ce8c\",\r\n        \"areaName\": \"Барнаул\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"дезинфектология\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"656056\",\r\n            \"latitude\": \"53.332618\",\r\n            \"longtitude\": \"83.796134\",\r\n            \"fiasVersion\": 333,\r\n            \"aoidStreet\": \"3fa909de-4d9b-4f05-a065-013b25ebe3cc\",\r\n            \"houseid\": \"52236cc2-4a20-4200-97d6-8020a9786292\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Ползунова\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"23\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8785,\r\n        \"nameFull\": \"краевое государственное бюджетное учреждение здравоохранения 'Клинико-диагностический центр г.Рубцовска'\",\r\n        \"nameShort\": \"КГБУЗ 'Клинико-диагностический центр г.Рубцовска'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2209022345\",\r\n        \"kpp\": \"220901001\",\r\n        \"ogrn\": \"1022200807078\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"29.09.2022\",\r\n        \"moAgencyKindId\": \"43\",\r\n        \"moAgencyKind\": \"Центр (Лечебно-профилактические медицинские организации)\",\r\n        \"cadastralNumber\": \"22:70:020301:114\",\r\n        \"aoidArea\": \"88bd48c0-618e-469c-82dc-32587189609f\",\r\n        \"areaName\": \"Рубцовск\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"дерматовенерология и косметология\",\r\n            \"лабораторное дело\",\r\n            \"оториноларингология\",\r\n            \"пластическая хирургия\",\r\n            \"неонатология\",\r\n            \"стоматология хирургическая\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"658222\",\r\n            \"latitude\": \"51.553878\",\r\n            \"longtitude\": \"81.241056\",\r\n            \"fiasVersion\": 332,\r\n            \"aoidStreet\": \"1b2abd5a-5bcd-4c03-ac9e-b5faed1433ba\",\r\n            \"houseid\": \"a7115d5b-7512-44ff-9a1f-ff5182279fa6\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Федоренко\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"21А\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8800,\r\n        \"nameFull\": \"краевое государственное бюджетное учреждение здравоохранения 'Онкологический диспансер г.Рубцовска'\",\r\n        \"nameShort\": \"КГБУЗ 'Онкологический диспансер г.Рубцовска'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2209014658\",\r\n        \"kpp\": \"220901001\",\r\n        \"ogrn\": \"1022200805417\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"30.11.2022\",\r\n        \"moAgencyKindId\": \"23\",\r\n        \"moAgencyKind\": \"Диспансер\",\r\n        \"cadastralNumber\": \"22:70:021004:0002\",\r\n        \"aoidArea\": \"88bd48c0-618e-469c-82dc-32587189609f\",\r\n        \"areaName\": \"Рубцовск\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"эндоскопия\",\r\n            \"стоматология терапевтическая\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"658213\",\r\n            \"latitude\": \"51.519088\",\r\n            \"longtitude\": \"81.218419\",\r\n            \"fiasVersion\": 332,\r\n            \"aoidStreet\": \"2bf702c9-9804-4edd-a7fd-091e36d10515\",\r\n            \"houseid\": \"94470abc-fa7c-47e8-bfdd-2ee41dcf869a\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Громова\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"19\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8801,\r\n        \"nameFull\": \"краевое государственное бюджетное учреждение здравоохранения 'Психиатрическая больница г.Рубцовска'\",\r\n        \"nameShort\": \"КГБУЗ 'Психиатрическая больница г.Рубцовска'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2209011270\",\r\n        \"kpp\": \"220901001\",\r\n        \"ogrn\": \"1022200813766\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"15.10.2022\",\r\n        \"moAgencyKindId\": \"1\",\r\n        \"moAgencyKind\": \"Больница (в том числе детская)\",\r\n        \"aoidArea\": \"88bd48c0-618e-469c-82dc-32587189609f\",\r\n        \"areaName\": \"Рубцовск\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"ревматология\",\r\n            \"челюстно-лицевая хирургия\",\r\n            \"скорая медицинская помощь\",\r\n            \"психотерапия\",\r\n            \"водолазная медицина\",\r\n            \"ультразвуковая диагностика\",\r\n            \"лабораторная микология\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"658200\",\r\n            \"latitude\": \"51.508456\",\r\n            \"longtitude\": \"81.205591\",\r\n            \"fiasVersion\": 331,\r\n            \"aoidStreet\": \"c1368ca5-c636-4292-81e2-1cbbc44329ae\",\r\n            \"houseid\": \"ac1aadc6-a753-494f-b21f-2e4749ff7b91\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Карла Маркса\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"186\"\r\n        }\r\n    },\r\n    {\r\n        \"id\": 8806,\r\n        \"nameFull\": \"краевое государственное бюджетное учреждение здравоохранения 'Наркологический диспансер г. Рубцовска'\",\r\n        \"nameShort\": \"КГБУЗ 'Наркодиспансер Рубцовск'\",\r\n        \"medicalSubjectId\": 2,\r\n        \"medicalSubjectName\": \"Медицинская организация\",\r\n        \"inn\": \"2209009400\",\r\n        \"kpp\": \"220901001\",\r\n        \"ogrn\": \"1022200808728\",\r\n        \"regionId\": \"22\",\r\n        \"regionName\": \"Алтайский край\",\r\n        \"createDate\": \"16.10.2016\",\r\n        \"modifyDate\": \"29.09.2022\",\r\n        \"moAgencyKindId\": \"23\",\r\n        \"moAgencyKind\": \"Диспансер\",\r\n        \"cadastralNumber\": \"22:70:000000:00\",\r\n        \"aoidArea\": \"88bd48c0-618e-469c-82dc-32587189609f\",\r\n        \"areaName\": \"Рубцовск\",\r\n        \"prefixArea\": \"г\",\r\n        \"grade\": 5,\r\n        \"specialties\": [\r\n            \"сердечно-сосудистая хирургия\",\r\n            \"детская эндокринология\",\r\n            \"реаниматология\",\r\n            \"колопроктология\",\r\n            \"челюстно-лицевая хирургия\",\r\n            \"медицинская генетика\"\r\n        ],\r\n        \"addr\": {\r\n            \"postIndex\": \"658200\",\r\n            \"latitude\": \"51.507822\",\r\n            \"longtitude\": \"81.215014\",\r\n            \"fiasVersion\": 333,\r\n            \"aoidStreet\": \"cb86306a-530f-473f-a23d-a8b310b58b7e\",\r\n            \"addrRegionId\": 22,\r\n            \"addrRegionName\": \"Алтайский край\",\r\n            \"territoryCode\": 1,\r\n            \"isFederalCity\": \"false\",\r\n            \"streetName\": \"Юбилейная\",\r\n            \"prefixStreet\": \"ул\",\r\n            \"house\": \"34\"\r\n        }\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/import",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"import"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/internal/getCities",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"internal",
+								"getCities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSpecialties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/internal/getSpecialties",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"internal",
+								"getSpecialties"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "front",
+			"item": [
+				{
+					"name": "/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://{{host}}:{{port}}",
+			"type": "string"
+		},
+		{
+			"key": "host",
+			"value": "0.0.0.0",
+			"type": "string"
+		},
+		{
+			"key": "port",
+			"value": "5000",
+			"type": "string"
+		}
+	]
+}

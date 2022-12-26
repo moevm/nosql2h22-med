@@ -1,12 +1,21 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useParams } from "react-router-dom";
 import { AiFillHome, AiFillClockCircle } from "react-icons/ai"
 import { FaInternetExplorer } from "react-icons/fa"
-
-
 import Grade from "../Components/Grade"
-import logo from "../icons/hosp1.jpg"
+import logo from "../icons/hospital_tmp.jpg"
+import { getMedicalbyId } from "../api/postman";
 
-const Profilepage = ({ profile }) => {
+const Profilepage = () => {
+
+    const { id } = useParams();
+    const [profile, setProfile] = useState("");
+
+    useEffect(() => {
+        getMedicalbyId(id).then((response) => {
+            setProfile(response.data)
+        }, []);
+    }, [])
 
     var addr = <>Не указан</>
     if (profile.addr !== undefined) {
@@ -20,15 +29,15 @@ const Profilepage = ({ profile }) => {
             </div>
             <div className="lower-container container">
                 <div className="container">
-                    <h2>Структурное подразделение АДЦ в г. Артем Филиала ООО 'Эверест в г. Спасск-Дальний</h2>
+                    <h2>{profile.nameFull}</h2>
                 </div>
                 <div className="container">
-                    <Grade amount={5}></Grade>
+                    <Grade amount={profile.grade}></Grade>
                 </div>
                 <div className="container">
                     <ul>
                         <li><AiFillHome/></li>
-                        <li><p>Бабушкина ул 34 пом.4,5 Приморский край</p></li>
+                        <li><p>{addr}</p></li>
                     </ul>
                     <ul>
                         <li><AiFillClockCircle/></li>
@@ -40,7 +49,7 @@ const Profilepage = ({ profile }) => {
                     </ul>
                 </div>
                 <div className="container">
-                    <p>"радиология и радиотерапия" "функциональная диагностика" "паразитология" "детская урология-андрология" "диабетология" "педиатрия" "детская онкология"</p>
+                    <p>Специальности: {profile.specialties && profile.specialties.join(", ")}</p>
                 </div>
             </div>
         </div>

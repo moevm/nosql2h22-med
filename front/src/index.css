@@ -1,3 +1,8 @@
+.scroll {
+  height:10px;
+overflow-y: scroll;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -23,8 +28,14 @@ body {
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .2);
 }
 
-.sticky {
-  position: sticky;
+.search-bar {
+  display: inline;
+  align-items: center;
+}
+
+.search-settings {
+  display: flex;
+  transition: all 0.3s ease-in-out;
 }
 
 .homepage {
@@ -47,6 +58,42 @@ body {
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, .2);
 }
 
+.sort-dialog {
+  text-align: center;
+  appearance: none;
+  cursor: pointer;
+  border-width: 0px;  
+  transition: all 0.3s ease-in-out;
+}
+
+.sort-dialog:hover{
+  transform: scale(105%);
+  box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, .2);
+}
+
+.sort-dialog:focus {
+  transform: scale(105%);
+  box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, .2);
+}
+
+.filter-dialog {
+  text-align: center;  
+  appearance: none;
+  cursor: pointer;
+  border-width: 0px;  
+  transition: all 0.3s ease-in-out;
+}
+
+.filter-dialog:hover {
+  transform: scale(105%);
+  box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, .2);
+}
+
+.filter-dialog:focus {
+  transform: scale(105%);
+  box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, .2);
+}
+
 .grade {
   display: inline;
 }
@@ -56,7 +103,7 @@ body {
   font-size: 1rem;
   background: #fff;
   border-radius: 60px;
-  width: 1000px;
+  width: 100%;
   height: 60px;
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, .2);
 }
@@ -64,7 +111,7 @@ body {
 .search__input {
   color: #2573ef;
   border: 1px solid;
-  outline: none;
+  outline: 0;
   text-align: center;
 }
 
@@ -72,11 +119,12 @@ body {
   display: flex;
   margin: 2em;
   padding: 1em;
+  cursor: pointer;
   transition: all 0.3s ease-in-out;
+
 }
 
 .post:hover {
-  cursor: pointer;
   transform: scale(105%);
   box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, .2);
 }
