@@ -2,6 +2,10 @@ import { getCities, getPosts, getSpecialties } from '../api/postman'
 import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import { BiImport, BiExport } from "react-icons/bi"
+import { FaCity, FaDoorClosed } from "react-icons/fa"
+import { GrSort } from "react-icons/gr"
+import { MdMedicalServices } from "react-icons/md"
+
 import Post from "../Components/Post"
 
 const getCitiesPromise = getCities().then(({ data }) => data);
@@ -26,6 +30,12 @@ const Homepage = () => {
     useEffect(() => {
         getSpecialtiesPromise.then(setSpecialties)
         .catch(err => console.error(err.toJSON()));
+    }, [])
+
+    useEffect(() => {
+        getPosts(searchValue, specializationFilter, cityFilter, timeFilter, sortAttribute).then((response) => {
+            setSearchResults(response.data);
+        }, []);
     }, [])
 
     const handleSelectSpecializationFilterChange = (e) => {
@@ -58,8 +68,6 @@ const Homepage = () => {
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value);
-
-        if (!e.target.value) return setSearchResults([])
 
         getPosts(e.target.value, specializationFilter, cityFilter, timeFilter, sortAttribute).then((response) => {
             setSearchResults(response.data);
@@ -106,46 +114,58 @@ const Homepage = () => {
                 />
             </form>
             <div className="search-settings">
-                <select 
-                    className='container filter-dialog'
-                    onChange={handleSelectSpecializationFilterChange}
-                    value={specializationFilter}
-                >
-                    <option value=""></option>
-                    {specialties.map((specialization, index) => {
-                        return <option key={index} value={specialization}>{specialization}</option>;
-                    })}
-                </select>
-                <select 
-                    className='container filter-dialog'
-                    onChange={handleSelectCityFilterChange}
-                    value={cityFilter}
-                >
-                    <option value=""></option>
-                    {cities.map((city, index) => {
-                        return <option key={index} value={city}>{city}</option>;
-                    })}
-                </select>
-                <select 
-                    className='container filter-dialog'
-                    onChange={handleTimeFilterChange}
-                    value={timeFilter}
-                >
-                        <option value=""></option>
-                        <option value="Открыто">Открыто</option>
-                        <option value="Закрыто">Закрыто</option>
-                </select>
-                <select
-                    className="container sort-dialog"
-                    onChange={handleSelectSortChange}
-                    value={sortAttribute}
-                >
-                    <option value=""></option>
-                    <option value="regionName">Город</option>
-                    <option value="grade">Рейтинг</option>
-                    <option value="nameFull">Название</option>
-                    <option value="specialties">Специальности</option>
-                </select>
+                <div className="search-cond">
+                    <MdMedicalServices size={20}/>
+                    <select 
+                        className='container filter-dialog'
+                        onChange={handleSelectSpecializationFilterChange}
+                        value={specializationFilter}
+                    >
+                        <option value="">Все специальности</option>
+                        {specialties.map((specialization, index) => {
+                            return <option key={index} value={specialization}>{specialization}</option>;
+                        })}
+                    </select>
+                </div>
+                <div className="search-cond">
+                    <FaCity size={20}/>
+                    <select 
+                        className='container filter-dialog'
+                        onChange={handleSelectCityFilterChange}
+                        value={cityFilter}
+                    >
+                        <option value="">Все регионы</option>
+                        {cities.map((city, index) => {
+                            return <option key={index} value={city}>{city}</option>;
+                        })}
+                    </select>
+                </div>
+                <div className="search-cond">
+                    <FaDoorClosed size={20}/>
+                    <select 
+                        className='container filter-dialog'
+                        onChange={handleTimeFilterChange}
+                        value={timeFilter}
+                    >
+                            <option value="">В любое время</option>
+                            <option value="Открыто">Открыто</option>
+                            <option value="Закрыто">Закрыто</option>
+                    </select>
+                </div>
+                <div className="search-cond">
+                    <GrSort size={20}/>
+                    <select
+                        className="container sort-dialog"
+                        onChange={handleSelectSortChange}
+                        value={sortAttribute}
+                    >
+                        <option value="">Не сортировать</option>
+                        <option value="regionName">Город</option>
+                        <option value="grade">Рейтинг</option>
+                        <option value="nameFull">Название</option>
+                        <option value="specialties">Специальности</option>
+                    </select>
+                </div>
                 </div>
         </div>
         <div>
