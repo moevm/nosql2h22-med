@@ -65,6 +65,12 @@ body {
   font-size: 30px;
 }
 
+.search-cond {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .sort-dialog {
   text-align: center;
   appearance: none;
