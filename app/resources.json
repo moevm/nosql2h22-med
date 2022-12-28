@@ -1,7 +1,7 @@
 {
   "domain": "0.0.0.0",
   "port": "5000",
-  "db_address": "mongodb+srv://kirja1980:NoSQL_2022@nosql2022.adeyqzi.mongodb.net/?retryWrites=true&w=majority",
+  "db_address": "mongodb://mongo:27017",
   "db_name": "NoSQL_2022",
   "db_collection": "main"
 }

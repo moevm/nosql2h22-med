@@ -25,4 +25,21 @@ services:
       - CHOKIDAR_USEPOLLING=true
 
   mongo:
-      image: mongo:6.0.2
+    image: mongo:6.0.2
+    networks:
+      - test
+
+  mongo_seed:
+    image: mongo:6.0.2
+    links:
+      - mongo
+    networks:
+      - test
+    volumes:
+      - ./mongo-seed:/mongo-seed/
+    command:
+      /mongo-seed/import.sh
+
+networks:
+  test:
+    driver: "bridge"

@@ -114,7 +114,8 @@ def GetHospitalList():
 
     # Если поиск пустой, то поиск еще раз
     if len(json_list) == 0:
-        filters.pop('$text')
+        if filters.get('$text'):
+            filters.pop('$text')
         ret = db_collection.find(
             filter=filters,
             projection=(
