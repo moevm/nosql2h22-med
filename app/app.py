@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 import os
 import json
 import pymongo
+from pymongo import TEXT
 import logging
 
 UPLOAD_FOLDER = 'files/'
@@ -322,6 +323,13 @@ if __name__ == "__main__":
         client = pymongo.MongoClient(resource['db_address'])
         db = client[resource['db_name']]
         db_collection = db.get_collection(resource['db_collection'])
+
+        a = list(db_collection.list_indexes())
+        list_index = []
+        for i in a:
+            list_index.append(i.get('name'))
+        if 'nameFull_text' not in list_index:
+            db_collection.create_index([('nameFull', TEXT)], default_language='russian', name='nameFull_text')
 
         # run_update_indexes()
         app.run(host=resource['domain'])

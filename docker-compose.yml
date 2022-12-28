@@ -8,8 +8,11 @@ services:
     - .:/app
     ports:
       - "5000:5000"
+    links:
+      - mongo
     networks:
-      - test
+      - backend
+      - frontend
       
   front:
     container_name: front
@@ -23,23 +26,27 @@ services:
       - "3000:3000"
     environment:
       - CHOKIDAR_USEPOLLING=true
+    networks:
+      - frontend
 
   mongo:
     image: mongo:6.0.2
     networks:
-      - test
+      - backend
 
   mongo_seed:
     image: mongo:6.0.2
     links:
       - mongo
     networks:
-      - test
+      - backend
     volumes:
       - ./mongo-seed:/mongo-seed/
     command:
       /mongo-seed/import.sh
 
 networks:
-  test:
+  backend:
+    driver: "bridge"
+  frontend:
     driver: "bridge"
